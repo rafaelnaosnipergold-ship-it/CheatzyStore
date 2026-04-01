@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CheatzyStore</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Orbitron',sans-serif;
+  color:#fff;
+  background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.9)),url('https://cdn.discordapp.com/attachments/1473742474953359481/1488645353015345172/file_000000007d60720ead0a84dec1a3aae5.png?ex=69cd8885&is=69cc3705&hm=e0538c256668b00be8c76eb0760f45d3519f3cf577d298a55664caa96dc295a9&');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+
+/* partículas */
+body::before{
+  content:"";
+  position:fixed;
+  width:100%;height:100%;
+  background:radial-gradient(circle,#00ffff22 1px,transparent 1px);
+  background-size:40px 40px;
+  animation:move 15s linear infinite;
+}
+@keyframes move{from{transform:translateY(0)}to{transform:translateY(-200px)}}
+
+.menu-btn{position:fixed;top:20px;right:20px;font-size:30px;cursor:pointer;z-index:999}
+
+.sidebar{
+  position:fixed;top:0;right:-300px;
+  width:300px;height:100%;
+  background:#050505;
+  padding:20px;
+  transition:.4s;z-index:998;
+  box-shadow:-5px 0 20px #00ffff44;
+}
+.sidebar.active{right:0}
+.sidebar a{display:block;color:#0ff;margin:15px 0;text-decoration:none;cursor:pointer}
+
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:1000}
+.modal-content{background:#111;padding:20px;border-radius:10px;border:1px solid #0ff;box-shadow:0 0 20px #0ff;max-width:800px}
+.close{position:absolute;top:20px;right:30px;font-size:30px;cursor:pointer}
+
+header{text-align:center;padding:60px 20px}
+header h1{font-size:3rem;color:#0ff;text-shadow:0 0 10px #0ff,0 0 30px #0ff;animation:neon 1.5s infinite alternate}
+@keyframes neon{from{text-shadow:0 0 10px #0ff}to{text-shadow:0 0 30px #0ff,0 0 60px #0ff}}
+
+.container{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px;padding:40px}
+
+.card{
+  position:relative;
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(12px);
+  padding:25px;
+  border-radius:15px;
+  border:1px solid rgba(0,255,255,.2);
+  overflow:hidden;
+  transition:.4s;
+}
+.card::before{
+  content:"";
+  position:absolute;
+  width:200%;height:200%;
+  background:linear-gradient(45deg,transparent,#00ffff44,transparent);
+  animation:laser 4s linear infinite;
+}
+@keyframes laser{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.card:hover{transform:translateY(-10px) scale(1.03);box-shadow:0 0 30px #0ff}
+
+.price{color:#00ff88;margin:10px 0}
+.old{text-decoration:line-through;color:#ff4444}
+
+.btn{display:inline-block;margin-top:10px;padding:10px 15px;border-radius:8px;border:1px solid #0ff;color:#0ff;text-decoration:none}
+.btn:hover{background:#0ff;color:#000;box-shadow:0 0 20px #0ff}
+
+/* contador */
+.counter{position:fixed;bottom:20px;left:20px;background:#000;padding:10px;border:1px solid #0ff;box-shadow:0 0 10px #0ff}
+
+/* NOTIFICAÇÃO TOPO */
+.popup{
+  position:fixed;
+  top:-80px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#000;
+  padding:12px 20px;
+  border:1px solid #0ff;
+  box-shadow:0 0 15px #0ff;
+  border-radius:8px;
+  transition:all .5s ease;
+  opacity:0;
+  z-index:999;
+}
+.popup.show{
+  top:20px;
+  opacity:1;
+}
+
+footer{text-align:center;padding:20px;background:#000}
+</style></head><body><div class="menu-btn" onclick="toggleMenu()">☰</div><div class="sidebar" id="menu">
+  <h2>Menu</h2>
+  <a href="https://discord.gg/yykhD8Udde" target="_blank">Servidor</a>
+  <a href="https://discord.com/channels/1444011966824714433/1486541784489263296" target="_blank">Suporte</a>
+  <a onclick="openModal()">Como trabalhamos</a>
+  <a onclick="openVideos()">Vídeos Cheat</a>
+</div><!-- modal info --><div class="modal" id="modal">
+  <div class="close" onclick="closeModal()">✖</div>
+  <div class="modal-content">
+    <h2>Como Trabalhamos</h2>
+    <p>Dono: Leafar<br><br>⚠️ Apenas eu sou ADM<br>⚠️ Não caia em golpes<br><br>✔️ Vendas automáticas ✔️ Entrega rápida ✔️ Suporte via ticket</p>
+  </div>
+</div><!-- modal videos --><div class="modal" id="videos">
+  <div class="close" onclick="closeVideos()">✖</div>
+  <div class="modal-content">
+    <h2>Vídeos Cheat</h2>
+    <video controls src="https://media.discordapp.net/attachments/1476771490124005397/1488647837112602684/lv_0_20260331181421.mp4"></video>
+    <video controls src="https://media.discordapp.net/attachments/1481113352490057739/1488651878861504603/lv_0_20260331183015.mp4"></video>
+    <video controls src="https://media.discordapp.net/attachments/1486542508438851606/1488652212216533033/lv_0_20260331181644.mp4"></video>
+  </div>
+</div><header>
+  <h1>CheatzyStore</h1>
+  <p>Domine o jogo. Seja impossível.</p>
+  <a href="https://discord.gg/ZHTpu9ZdYc" class="btn" target="_blank">Entrar no Discord</a>
+</header><div class="container"><div class="card">
+<h2>HOLOGRAMA</h2>
+<p class="price"><span class="old">R$17.00</span> → R$2.99</p>
+<p>100% pra conta principal, ant ban, veja através das paredes e domine tudo.</p>
+<a href="https://discord.com/channels/1444011966824714433/1476771490124005397" target="_blank" class="btn">Comprar</a>
+</div><div class="card">
+<h2>HS PESCOÇO</h2>
+<p class="price"><span class="old">R$50.00</span> → R$13.00</p>
+<p>Exclusivo Xiaomi, headshot fácil, ant ban e ant black.</p>
+<a href="https://discord.com/channels/1444011966824714433/1481113352490057739" target="_blank" class="btn">Comprar</a>
+</div><div class="card">
+<h2>HASHIRA SENSI</h2>
+<p class="price"><span class="old">R$24.99</span> → R$7.90</p>
+<p>A melhor sensi do momento, capa fácil e precisão absurda.</p>
+<a href="https://discord.com/channels/1444011966824714433/1486542508438851606" target="_blank" class="btn">Comprar</a>
+</div></div><div class="counter" id="counter">👁️ 87 usuários online</div>
+<div class="popup" id="popup"></div><footer>© 2026 CheatzyStore | Dono: Leafar</footer><script>
+function toggleMenu(){document.getElementById('menu').classList.toggle('active')}
+function openModal(){document.getElementById('modal').style.display='flex'}
+function closeModal(){document.getElementById('modal').style.display='none'}
+function openVideos(){document.getElementById('videos').style.display='flex'}
+function closeVideos(){document.getElementById('videos').style.display='none'}
+
+// contador dinâmico
+let users=87;
+setInterval(()=>{
+  let change=Math.random()>0.5?1:-1;
+  users+=change;
+  if(users<50)users=60;
+  if(users>120)users=100;
+  document.getElementById('counter').innerText=`👁️ ${users} usuários online`;
+},2000);
+
+// NOTIFICAÇÃO TOPO
+const produtos=["HOLOGRAMA","HS PESCOÇO","HASHIRA SENSI"];
+
+setInterval(()=>{
+  let popup=document.getElementById('popup');
+
+  let p=produtos[Math.floor(Math.random()*produtos.length)];
+
+  popup.innerText=`💸 Alguém comprou ${p}`;
+
+  popup.classList.add('show');
+
+  setTimeout(()=>{
+    popup.classList.remove('show');
+  },2000);
+
+},20000);
+</script></body>
+</html>
